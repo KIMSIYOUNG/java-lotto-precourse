@@ -19,12 +19,12 @@ public class UserInput {
         }
     }
 
-    private int checkAndMakeMoneyToHowMany(int parseInt) throws IOException {
-        if(parseInt % LOTTO_EACH_PRICE != ZERO){
+    private int checkAndMakeMoneyToHowMany(int userMoney) throws IOException {
+        if(userMoney % LOTTO_EACH_PRICE != ZERO){
             PrintHandler.errorUnit();
             return howManyBuyLotto();
         }
-        return parseInt / LOTTO_EACH_PRICE;
+        return userMoney / LOTTO_EACH_PRICE;
     }
 
 }

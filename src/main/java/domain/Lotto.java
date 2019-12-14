@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * 로또 한장을 의미하는 객체
@@ -13,4 +14,10 @@ public class Lotto {
     }
 
     // 추가 기능 구현
+
+    @Override
+    public String toString(){
+        String result = String.join(",", String.valueOf(numbers));
+        return result;
+    }
 }
