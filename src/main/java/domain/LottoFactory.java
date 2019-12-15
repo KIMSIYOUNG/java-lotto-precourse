@@ -9,11 +9,12 @@ public class LottoFactory {
     private static final int LOTTO_AMOUNT = 6;
     private static final int START_FROM = 1;
     private static final int LottoSUM = 45;
-    private static final Set<Integer> setNotForDuplication = new HashSet<>();
+    private static Set<Integer> setNotForDuplication;
 
-    public static Lotto create(){
+    public static Lotto create() {
+        setNotForDuplication = new HashSet<>();
         List<Integer> lotto = new ArrayList<>();
-        for(int i = 0; i<LOTTO_AMOUNT; i++){
+        for (int i = 0; i < LOTTO_AMOUNT; i++) {
             lotto.add(makeRandomNumberWithOutDuplication());
         }
         return new Lotto(lotto);
@@ -21,8 +22,10 @@ public class LottoFactory {
 
     private static Integer makeRandomNumberWithOutDuplication() {
         int randomNumber = (int) (Math.random() * LottoSUM + START_FROM);
-        if(setNotForDuplication.contains(randomNumber))
+        if (setNotForDuplication.contains(randomNumber)){
             return makeRandomNumberWithOutDuplication();
+        }
+        setNotForDuplication.add(randomNumber);
         return randomNumber;
     }
 }

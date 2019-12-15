@@ -2,7 +2,9 @@ package io;
 
 import java.util.List;
 
+import domain.Counting;
 import domain.Lotto;
+import domain.Rank;
 
 public class PrintHandler {
     private static final String INPUT_HOW_MUCH_MONEY = "구입 금액을 입력 해 주세요.";
@@ -14,6 +16,8 @@ public class PrintHandler {
     private static final String ERROR_FORMAT = "잘못된 입력입니다 숫자만 입력해주세요";
     private static final String INPUT_BONUS_NUMBER = "보너스 수를 입력해주세요.";
     private static final String ERROR_RANGE = "범위가 잘 못되었습니다. 1~45 사이의 수를 입력해주세요";
+    private static final String NEXT_LINE = "\n";
+    private static final String PRINT_WINNING_RESULT = "당첨통계" + NEXT_LINE + "------------";
 
     public static void inputHowMuchMoney() {
         System.out.println(INPUT_HOW_MUCH_MONEY);
@@ -55,5 +59,15 @@ public class PrintHandler {
 
     public static void errorRange() {
         System.out.println(ERROR_RANGE);
+    }
+
+    public static void printWinningResult() {
+        System.out.println(PRINT_WINNING_RESULT);
+    }
+
+    public static void printResult(int howMany) {
+        System.out.println(Counting.getResult());
+        System.out.print("총 수익률 : ");
+        System.out.format("%.3f", (double) Counting.getTotalWinning() / howMany );
     }
 }

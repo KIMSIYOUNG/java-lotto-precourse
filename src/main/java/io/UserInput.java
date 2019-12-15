@@ -8,8 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import domain.WinningLotto;
-
 public class UserInput {
     private static final BufferedReader BR = new BufferedReader(new InputStreamReader(System.in));
     private static final int LOTTO_EACH_PRICE = 1000;
@@ -22,14 +20,14 @@ public class UserInput {
         PrintHandler.inputHowMuchMoney();
         try {
             return checkAndMakeMoneyToHowMany(Integer.parseInt(BR.readLine().trim()));
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             PrintHandler.errorHowMuchMoney();
             return howManyBuyLotto();
         }
     }
 
     private int checkAndMakeMoneyToHowMany(int userMoney) throws IOException {
-        if(userMoney % LOTTO_EACH_PRICE != ZERO){
+        if (userMoney % LOTTO_EACH_PRICE != ZERO) {
             PrintHandler.errorUnit();
             return howManyBuyLotto();
         }
@@ -39,7 +37,7 @@ public class UserInput {
     public List<String> inputWinningNumbers() throws IOException {
         PrintHandler.inputWinningNumbers();
         List<String> winningNumbers = Arrays.asList(BR.readLine().trim().split(COMMA));
-        if(checkFormatOk(winningNumbers) && checkEachNumberOk(winningNumbers)){
+        if (checkFormatOk(winningNumbers) && checkEachNumberOk(winningNumbers)) {
             return winningNumbers;
         }
         PrintHandler.errorWinningNumber();
@@ -55,8 +53,9 @@ public class UserInput {
         }
         return true;
     }
+
     private boolean checkEachNumberOk(List<String> winningNumbers) {
-        if(checkDuplicatedOk(winningNumbers) && !checkNumberRangeOk(winningNumbers)){
+        if (checkDuplicatedOk(winningNumbers) && checkNumberRangeOk(winningNumbers)) {
             return true;
         }
         return false;
@@ -65,7 +64,7 @@ public class UserInput {
     private boolean checkNumberRangeOk(List<String> winningNumbers) {
         return !(winningNumbers.stream()
                 .map(Integer::parseInt)
-                .map(s->s<=LOTTO_MAX_NUMBER && s >=LOTTO_MIN_NUMBER)
+                .map(s -> s <= LOTTO_MAX_NUMBER && s >= LOTTO_MIN_NUMBER)
                 .collect(Collectors.toList())
                 .contains(false));
     }
@@ -76,16 +75,16 @@ public class UserInput {
 
     public int inputBonusNumber() throws IOException {
         PrintHandler.inputBonusNumber();
-        try{
+        try {
             return checkOneNumberRange(Integer.parseInt(BR.readLine().trim()));
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             PrintHandler.errorFormat();
             return inputBonusNumber();
         }
     }
 
     private int checkOneNumberRange(int parseInt) throws IOException {
-        if(parseInt <= LOTTO_MAX_NUMBER && parseInt >= LOTTO_MIN_NUMBER)
+        if (parseInt <= LOTTO_MAX_NUMBER && parseInt >= LOTTO_MIN_NUMBER)
             return parseInt;
         PrintHandler.errorRange();
         return inputBonusNumber();

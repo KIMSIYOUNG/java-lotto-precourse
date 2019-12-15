@@ -13,7 +13,16 @@ public class WinningLotto {
     }
 
     public Rank match(Lotto userLotto) {
+        int count = 0;
         // TODO 로직 구현
-        return null;
+        for(int i=0;i <lotto.getNumbers().size(); i++){
+            if(userLotto.getNumbers().contains(lotto.getNumbers().get(i))){
+                count ++;
+            }
+        }
+        if(count == 5 && userLotto.getNumbers().contains(bonusNo)){
+            return Rank.valueOf(count, true);
+        }
+        return Rank.valueOf(count, false);
     }
 }

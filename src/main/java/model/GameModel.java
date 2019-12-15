@@ -4,13 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.Lotto;
-import domain.LottoFactory;
-import domain.WinningLotto;
+import domain.*;
 import io.PrintHandler;
 import io.UserInput;
 
 public class GameModel {
+    private static final int LOTTO_EACH_MONEY = 1000;
     private final List<Lotto> lottoList = new ArrayList<>();
     private WinningLotto winningLotto;
 
@@ -27,11 +26,16 @@ public class GameModel {
         List<Integer> winningNumbers = stringListToIntegerList(userInput.inputWinningNumbers());
         int bonusNumber = userInput.inputBonusNumber();
         winningLotto = new WinningLotto(new Lotto(winningNumbers),bonusNumber);
+        PrintHandler.printWinningResult();
         setResult();
     }
 
     private void setResult() {
-
+        for (Lotto lotto : lottoList){
+            Rank result = winningLotto.match(lotto);
+            Counting.compareWith(result,result.name());
+        }
+        PrintHandler.printResult(lottoList.size() * LOTTO_EACH_MONEY);
     }
 
     private List<Integer> stringListToIntegerList(List<String> winningNumbers) {
